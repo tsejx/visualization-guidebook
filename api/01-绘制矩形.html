@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    ctx.lineWidth = 30;
+    
+    ctx.strokeStyle = 'goldenrod';
+    // ctx.fillStyle = 'rgba(0, 0, 255, 0.5)';
+    
+    // h ==> 色相  0度或者360度代表红色
+    // s ==> 饱和度  100% 表示完全饱和 0%表示灰色
+    // l ==> 亮度 100% 表示白色， 50% 表示正常颜色
+    ctx.fillStyle = 'hsla(140, 78%, 55%, 0.8)';
+    
+    // 立即绘制
+    ctx.strokeRect(75, 100, 200, 200);
+    ctx.fillRect(325, 100, 200, 200);
+    
+    canvas.onclick = function (){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    };
+  </script>
+</body>
+</html>
