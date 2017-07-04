@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script src='./DrawCircle.js'></script>
+  <script src='../drawGrids/DrawGrids.js'></script>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width = 1200;
+    const H = canvas.height = 600;
+    
+    DrawGrids(ctx, 'hsla(0, 0%, 0%, 0.2)', 20, 20);
+    
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', drawing);
+    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('mouseout', endDraw);
+    
+    function startDraw(e){
+      let event = eventWrap(e);
+      
+      this.startX = event.X;
+      this.startY = event.Y;
+      
+      this.drawTempData = ctx.getImageData(0, 0, W, H);
+      
+      this.drawAble = true;
+    }
+    
+    function drawing(e){
+      if(!this.drawAble) return;
+      
+      let event = eventWrap(e);
+      let R = getDistance(this.startX, this.startY, event.X, event.Y);
+      
+      ctx.putImageData(this.drawTempData, 0, 0);
+      DrawCircle(ctx, this.startX, this.startY, R);
+      
+      ctx.beginPath();
+      ctx.lineTo(this.startX, this.startY);
+      ctx.lineTo(event.X, event.Y);
+      ctx.stroke();
+    }
+    
+    function endDraw(e){
+      this.drawAble = false;
+      
+      let event = eventWrap(e);
+      let R = getDistance(this.startX, this.startY, event.X, event.Y);
+      
+      ctx.putImageData(this.drawTempData, 0, 0);
+      DrawCircle(ctx, this.startX, this.startY, R);
+    }
+    
+    function getDistance(x1, y1, x2, y2){
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+    
+    function eventWrap(event){
+      const canvas = event.target;
+      const borderSize = parseFloat(getComputedStyle(canvas)['border-width']);
+      const rect = canvas.getBoundingClientRect();
+      const X = event.pageX - rect.left - borderSize;
+      const Y = event.pageY - rect.top - borderSize;
+      return {
+        X, 
+        Y,
+        ev: event
+      }
+    }
+    
+    
+  </script>
+</body>
+</html>
