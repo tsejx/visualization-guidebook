@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width = 1000;
+    const H = canvas.height = 600;
+    
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = 'red';
+    
+    // 同一个时刻，之存在一条绘制路径，每个绘制路径可以存在多个子路径
+    // ctx.beginPath() 结束上一个绘制路径，起始一个新的路径。
+    
+    // rect
+    ctx.beginPath();
+    ctx.rect(80, 60, 150, 100);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.rect(400, 60, 150, 100);
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.rect(750, 60, 150, 100);
+    ctx.fill();
+    ctx.stroke();
+    
+    // arc-open
+    ctx.beginPath();
+    ctx.arc(150, 280, 60, 0, Math.PI*3/2);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.arc(475, 280, 60, 0, Math.PI*3/2);
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.arc(820, 280, 60, 0, Math.PI*3/2);
+    ctx.fill();
+    ctx.stroke();
+    
+    // arc-close
+    ctx.beginPath();
+    ctx.arc(150, 480, 60, 0, Math.PI*2);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.arc(475, 480, 60, 0, Math.PI*2);
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.arc(820, 480, 60, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.fill();
+    
+  </script>
+</body>
+</html>

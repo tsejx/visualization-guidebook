@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    // const gradient = ctx.createRadialGradient(W/2, H, 20, W/2, 0, 200);
+    const gradient = ctx.createRadialGradient(W/2, H/2, 20, W/2, H/2, 400);
+    
+    gradient.addColorStop(0, 'rgb(230, 36, 36)');
+    gradient.addColorStop(0.25, 'rgb(226, 242, 45)');
+    gradient.addColorStop(0.5, 'rgb(33, 151, 236)');
+    gradient.addColorStop(0.75, 'rgb(73, 224, 79)');
+    gradient.addColorStop(1, 'rgb(52, 254, 211)');
+    
+    ctx.fillStyle = gradient;
+    
+    ctx.fillRect(0, 0, W, H);
+  </script>
+</body>
+</html>

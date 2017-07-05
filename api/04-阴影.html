@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    /**
+     * 设置阴影必须满足下面两个条件：
+     * 1. 指定的阴影颜色必须是非全透明的颜色
+     * 2. 除了颜色属性以外任意一个属性的值不为 0
+     */
+    function setShadow(ctx, color, offsetX, offsetY, shadowBlur){
+      ctx.shadowColor = color;  // 阴影颜色
+      ctx.shadowOffsetX = offsetX;  // 阴影横向偏移距离
+      ctx.shadowOffsetY = offsetY;  // 阴影纵向偏移距离
+      ctx.shadowBlur = shadowBlur;  // 阴影高斯模糊处理
+    }
+    
+    setShadow(ctx, 'rgba(103, 226, 222, .6)', 10, 10, 6);
+    ctx.strokeStyle = 'rgb(36, 142, 138)';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(75, 100, 200, 200);
+    
+    setShadow(ctx, 'hsla(0, 92%, 74%, 0.7)', -10, -10, 12);
+    ctx.fillStyle = 'rgb(230, 157, 218)';
+    ctx.fillRect(325, 100, 200, 200);
+    
+  </script>
+</body>
+</html>
