@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script src="./Polygon.js"></script>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    const polygon = new Polygon(100, 100, 100, 6);
+    
+    ctx.lineWidth = 10;
+    polygon.createPath(ctx).stroke();
+    
+    canvas.onmousedown = function (e){
+      e.preventDefault();
+      
+      const event = eventWrap(this, e);
+      
+      if(!ctx.isPointInPath(event.X, event.Y)){
+        return;
+      }
+      
+      const dx = event.X - polygon.x;
+      const dy = event.Y - polygon.y;
+      
+      this.onmousemove = function (e){
+        const event = eventWrap(this, e);
+        
+        let x = event.X - dx;
+        let y = event.Y - dy;
+        
+        ctx.clearRect(0, 0, W, H);
+        polygon.moveTo(ctx, x, y).stroke();
+      }
+      this.onmouseup = this.onmouseout = function (){
+        this.onmouseup = this.onmousemove = this.onmouseout = null;
+      }
+    }
+    
+    
+    function eventWrap(ele, event){
+      const borderSize = parseFloat(getComputedStyle(canvas)['border-width']);
+      const rect = ele.getBoundingClientRect();
+      const X = event.pageX - rect.left - borderSize;
+      const Y = event.pageY - rect.top - borderSize;
+      return {
+        X, 
+        Y,
+        ev: event
+      }
+    }
+    
+  </script>
+</body>
+</html>
