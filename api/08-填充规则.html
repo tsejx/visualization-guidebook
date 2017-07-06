@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    setShadow(ctx, 'rgba(0, 0, 0, 0.8)', 12, 12, 15);
+    
+    ctx.fillStyle = 'rgba(100, 140, 230, .4)';
+    ctx.strokeStyle = 'rgba(100, 140, 230, .6)';
+    
+    ctx.beginPath();
+    ctx.arc(W/2, H/2, 150, 0, Math.PI*2);
+    ctx.arc(W/2, H/2, 100, 0, Math.PI*2, true);
+    // ctx.arc(W/2, H/2, 100, 0, Math.PI*2);
+    ctx.fill();
+    // ctx.stroke();
+    
+    
+    function setShadow(ctx, color, offsetX, offsetY, shadowBlur){
+      ctx.shadowColor = color;  // 阴影颜色
+      ctx.shadowOffsetX = offsetX;  // 阴影横向偏移距离
+      ctx.shadowOffsetY = offsetY;  // 阴影纵向偏移距离
+      ctx.shadowBlur = shadowBlur;  // 阴影高斯模糊处理
+    }
+    
+    /**
+     * 非零环绕填充法：
+     *  1.对于给定路径的任意区域，从该区域内部画一条足够长的线段，使此线段的重点完全落在路径范围之外。
+     *  2.将计数器初始化为0，每当这条线段和顺时针的线相交就+1，反之就-1，如果最后结果不是0，这部分填充。
+     */
+  </script>
+</body>
+</html>

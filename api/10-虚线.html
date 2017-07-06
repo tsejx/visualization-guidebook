@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    // ctx.setLineDash(array) 用来设置虚线样式
+    
+    ctx.lineWidth = 5;
+    
+    ctx.setLineDash([10, 20]);  
+    ctx.beginPath();
+    ctx.lineTo(100, 150.5);
+    ctx.lineTo(500, 150.5);
+    ctx.stroke();
+    
+    ctx.setLineDash([20, 5]);
+    ctx.beginPath();
+    ctx.lineTo(100, 250.5);
+    ctx.lineTo(500, 250.5);
+    ctx.stroke();
+    
+    ctx.setLineDash([10, 20, 30]);
+    ctx.beginPath();
+    ctx.lineTo(100, 350.5);
+    ctx.lineTo(500, 350.5);
+    ctx.stroke();
+    
+  </script>
+</body>
+</html>

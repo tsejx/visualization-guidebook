@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    ctx.strokeStyle = 'hsl(203, 68%, 58%)';
+    ctx.lineWidth = 5;
+    
+    ctx.beginPath();
+    ctx.arc(W/2, H/2, 100, 0, Math.PI*3/2);
+    ctx.closePath();  // 用来闭合一个路径
+    ctx.stroke();
+    
+    // 试试绘制一个线条宽度为10的三角形
+    
+  </script>
+</body>
+</html>
