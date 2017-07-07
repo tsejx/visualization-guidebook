@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    /**
+     * ctx.bezierCurveTo(cpx, cpy, cp2x, cp2y, x, y)
+     * 创建一条代表三次贝塞尔曲线的路径
+     * 参数分别是 控制点1 控制点2 锚点
+     */
+    
+    ctx.strokeStyle = 'blue';
+    ctx.lineWidth = 5;
+    
+    const startPoint = [
+      [130, 70],
+      [130, 250],
+      [450, 70],
+      [450, 250]
+    ];
+    
+    ctx.beginPath();
+    ctx.lineTo(130, 70);
+    ctx.bezierCurveTo(130, 250, 450, 70, 450, 250);
+    ctx.stroke();
+    
+    startPoint.forEach(function(item, i) {
+      ctx.beginPath();
+      ctx.arc(item[0], item[1], 6, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  </script>
+</body>
+</html>

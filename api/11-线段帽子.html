@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    ctx.beginPath();
+    ctx.lineTo(100.5, 0);
+    ctx.lineTo(100.5, H);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.lineTo(540.5, 0);
+    ctx.lineTo(540.5, H);
+    ctx.stroke();
+    
+    ctx.lineWidth = 20;
+    
+    ctx.lineCap = 'butt';
+    
+    ctx.beginPath();
+    ctx.lineTo(100.5, 100);
+    ctx.lineTo(540.5, 100);
+    ctx.stroke();
+    
+    ctx.lineCap = 'round';
+    
+    ctx.beginPath();
+    ctx.lineTo(100.5, 200);
+    ctx.lineTo(540.5, 200);
+    ctx.stroke();
+    
+    ctx.lineCap = 'square';
+    
+    ctx.beginPath();
+    ctx.lineTo(100.5, 300);
+    ctx.lineTo(540.5, 300);
+    ctx.stroke();
+    
+
+    
+  </script>
+</body>
+</html>

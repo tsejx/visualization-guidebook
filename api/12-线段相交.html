@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    ctx.lineWidth = 20;
+    ctx.strokeStyle = "tomato";
+
+    ctx.beginPath();
+    ctx.moveTo(70, 400);
+    ctx.lineTo(100, 200);
+    // ctx.lineTo(110, 400);
+    ctx.lineTo(120, 400);
+    // ctx.miterLimit = 20;    // 斜接线长度与线段宽度一半的比值，默认是10
+    ctx.lineJoin = "miter";    //默认。创建尖角
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(239, 150);
+    ctx.lineTo(289, 50);
+    ctx.lineTo(339, 150);
+    ctx.lineJoin = "round";    //创建圆角
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(379, 150);
+    ctx.lineTo(429, 50);
+    ctx.lineTo(479, 150);
+    ctx.lineJoin = "bevel";    //创建斜角
+    ctx.stroke();
+    
+  </script>
+</body>
+</html>

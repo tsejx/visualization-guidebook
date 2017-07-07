@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    /**
+     * ctx.quadraticCurveTo(cpx, cpy, x, y)
+     * 创建一条二次方贝塞尔曲线路径。
+     * 参数分别是：控制点 和 锚点
+     */
+    
+    ctx.fillStyle = 'cornflowerblue';
+    ctx.strokeStyle = 'yellow';
+    
+    ctx.shadowColor = 'rgba(50, 50, 50, 1)';
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    ctx.shadowBlur = 4;
+    
+    ctx.lineWidth = 20;
+    ctx.lineCap = 'round';
+    
+    ctx.beginPath();
+    ctx.lineTo(120.5, 130);
+    ctx.quadraticCurveTo(150.8, 130, 160.6, 150.5);
+    ctx.quadraticCurveTo(190, 250, 210.5, 160.5);
+    ctx.quadraticCurveTo(240, 100.5, 290, 70.5);
+    ctx.stroke();
+    
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = 'rgb(54, 213, 118)';
+    
+    ctx.beginPath();
+    ctx.lineJoin = 'bevel';
+    ctx.lineTo(100, 400);
+    ctx.quadraticCurveTo(250, 280, 400, 400);
+    ctx.quadraticCurveTo(500, 180, 400, 260);
+    ctx.stroke();
+    
+  </script>
+</body>
+</html>
