@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    
+    drawText();
+    
+    function drawText(){
+      ctx.save();
+      
+      ctx.shadowColor = 'rgba(100, 100, 150, 0.8)';
+      ctx.shadowOffsetX = 5;
+      ctx.shadowOffsetY = 5;
+      ctx.shadowBlur = 12;
+      
+      ctx.font = '180px Comic-sans';
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
+      
+      ctx.fillStyle = 'cornflowerblue';
+      ctx.fillText('HTML5', W/2, H/2);
+      
+      ctx.strokeStyle = 'yellow';
+      ctx.strokeText('HTML5', W/2, H/2);
+      
+      ctx.font = '30px Comic-sans';
+      ctx.fillText('Click me to run animation!', W/2, H/10);
+      
+      ctx.restore();
+    }
+    
+    function setClipRegion(r){
+      ctx.beginPath();
+      ctx.arc(W/2, H/2, r, 0, 2*Math.PI);
+      ctx.clip();
+    }
+    
+    function fillCanvas(color){
+      ctx.fillStyle = color;
+      ctx.fillRect(0, 0, W, H);
+    }
+    
+    function drawAnimationFrame(r){
+      setClipRegion(r);
+      fillCanvas('lightgray');
+      drawText();
+    }
+    
+    function animate(){
+      if(animate.timer) return;
+      
+      let r = W/2;
+      
+      (function animateFn(){
+        animate.timer = window.requestAnimationFrame(animateFn);
+        
+        r -= W/100;
+        
+        fillCanvas('charcoal');
+        
+        if(r > 0){
+          ctx.save();
+          drawAnimationFrame(r);
+          ctx.restore();
+        }else{
+          window.cancelAnimationFrame(animate.timer);
+          setTimeout(() => {
+            ctx.clearRect(0, 0, W, H);
+            drawText();
+            animate.timer = null;
+          }, 1000)
+        }
+      })();
+    }
+    
+    canvas.onclick = animate;
+    
+  </script>
+</body>
+</html>
