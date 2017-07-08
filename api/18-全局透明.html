@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    ctx.save();
+    ctx.globalAlpha = 0.5;
+    
+    ctx.fillStyle = 'hsl(249, 67%, 59%)';
+    ctx.fillRect(100, 100, 300, 200);
+    
+    ctx.fillStyle = 'rgb(176, 99, 223)';
+    ctx.fillRect(150, 150, 400, 100);
+    ctx.restore();
+    
+    ctx.save();
+    ctx.fillStyle = 'rgb(252, 33, 129)';
+    ctx.setTransform(1, 0, 0, 1, W/2, H/2);
+    ctx.arc(0, 0, 70, 0, 2*Math.PI);
+    ctx.fill();
+    ctx.restore();
+    
+    
+  </script>
+</body>
+</html>

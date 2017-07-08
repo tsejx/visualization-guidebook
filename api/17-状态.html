@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    /**
+     * ctx.save() 保存当前绘图环境的堆栈
+     * ctx.restore() 恢复对应的保存的绘图环境
+     *
+     * 按位置成对匹配。
+     */
+    
+    // ctx.save();
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = 'rgb(3, 222, 162)';
+    ctx.translate(200, 200);
+    ctx.beginPath();
+    ctx.arc(0, 0, 100, 0, 2*Math.PI);
+    ctx.stroke();
+    // ctx.restore();
+    
+    ctx.strokeStyle = 'rgb(213, 66, 227)';
+    ctx.strokeRect(50, 50, 200, 100);
+    
+  </script>
+</body>
+</html>

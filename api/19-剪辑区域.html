@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    /**
+     * clip 将剪辑区域设置为当前路径的交集。在第一次设置之前，剪辑区域的大小与整个canvas一致。
+     * 一般都会将剪辑区域与 save 和 restore嵌套使用。
+     */
+    
+    const x = W / 2, y = H / 2, radius = 100;
+    
+    ctx.save();        //保存当前环境的状态
+ 
+    //第一个圆
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI,false);
+    ctx.fillStyle = "tomato";
+    ctx.fill();
+    ctx.clip();        // 剪切任意形状和尺寸的区域
+
+    //第二个圆（与第一个圆部分重叠并覆盖）
+    ctx.beginPath();
+    ctx.arc(x + 100, y, radius, 0, 2 * Math.PI,false);
+    ctx.fillStyle = "#333";
+    ctx.fill();
+
+    //第三个圆（与第一个和第二个圆部分重叠并覆盖）
+    ctx.beginPath();
+    ctx.arc(x, y + 100, radius, 0, 2 * Math.PI,false);
+    ctx.fillStyle = "cornsilk";
+    ctx.fill();
+
+    //ctx.restore();     //返回之前保存过的路径状态和属性
+
+    //第四个圆（无填充，与第一个圆位置相同，并覆盖前三个圆之上）
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI,false);
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = "#CCC";
+    ctx.stroke();
+    
+  </script>
+</body>
+</html>

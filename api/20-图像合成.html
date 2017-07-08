@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+    .btns {
+      width: 640px;
+      margin: 10px 0;
+      padding: 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .btns button {
+      width: 120px;
+      height: 30px;
+      margin: 4px 10px;
+    }
+    .btns button.active {
+      background-color: rgb(22, 186, 186);
+    }
+    .info {
+      width: 640px;
+      line-height: 1.5em;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <div class="btns"></div>
+  <p class="info"></p>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    var types = [];
+    
+    types.push('source-over');        //默认。在目标图像上显示源图像（新图形绘制于已有图形的顶部）
+    types.push('source-atop');        //在目标图像顶部显示源图像。源图像位于目标图像之外的部分是不可见的（只有在新图形和已有内容重叠的地方，才绘制新图形）
+    types.push('source-in');          //在目标图像中显示源图像。只有目标图像内的源图像部分会显示，目标图像是透明的（在新图形以及已有内容重叠的地方，新图形才绘制。所有其他内容成为透明）
+    types.push('source-out');         //在目标图像之外显示源图像。只会显示目标图像之外源图像部分，目标图像是透明的（只有在和已有图形不重叠的地方，才绘制新图形）
+    types.push('destination-atop');   //在源图像顶部显示目标图像。源图像之外的目标图像部分不会被显示。（已有的内容只有在它和新的图形重叠的地方保留。新图形绘制于内容之后）
+    types.push('destination-in');     //在源图像中显示目标图像。只有源图像内的目标图像部分会被显示，源图像是透明的（在新图形以及已有画布重叠的地方，已有内容都保留。所有其他内容成为透明的）
+    types.push('destination-out');    //透明值。必须介于 0（完全透明） 与 1（不透明） 之间（在已有内容和新图形不重叠的地方，已有内容保留。所有其他内容成为透明。）
+    types.push('destination-over');   //在源图像上方显示目标图像（新图形绘制于已有内容的后面）
+    types.push('lighter');            //显示源图像 + 目标图像（在图形重叠的地方，颜色由两种颜色值的加值来决定）
+    types.push('darker');             //在图形重叠的地方，颜色由两个颜色值相减后决定
+    types.push('xor');                //使用异或操作对源图像与目标图像进行组合（在重叠和正常绘制的其他地方，图形都成为透明的）
+    types.push('copy');               //显示源图像。忽略目标图像。（只绘制新图形，删除其他所有内容）
+    
+    const text = [
+      '默认。在目标图像上显示源图像（新图形绘制于已有图形的顶部）',
+      '在目标图像顶部显示源图像。源图像位于目标图像之外的部分是不可见的（只有在新图形和已有内容重叠的地方，才绘制新图形）',
+      '在目标图像中显示源图像。只有目标图像内的源图像部分会显示，目标图像是透明的（在新图形以及已有内容重叠的地方，新图形才绘制。所有其他内容成为透明）',
+      '在目标图像之外显示源图像。只会显示目标图像之外源图像部分，目标图像是透明的（只有在和已有图形不重叠的地方，才绘制新图形）',
+      '在源图像顶部显示目标图像。源图像之外的目标图像部分不会被显示。（已有的内容只有在它和新的图形重叠的地方保留。新图形绘制于内容之后）',
+      '在源图像中显示目标图像。只有源图像内的目标图像部分会被显示，源图像是透明的（在新图形以及已有画布重叠的地方，已有内容都保留。所有其他内容成为透明的）',
+      '透明值。必须介于 0（完全透明） 与 1（不透明） 之间（在已有内容和新图形不重叠的地方，已有内容保留。所有其他内容成为透明。）',
+      '在源图像上方显示目标图像（新图形绘制于已有内容的后面）',
+      '显示源图像 + 目标图像（在图形重叠的地方，颜色由两种颜色值的加值来决定）',
+      '在图形重叠的地方，颜色由两个颜色值相减后决定',
+      '使用异或操作对源图像与目标图像进行组合（在重叠和正常绘制的其他地方，图形都成为透明的）',
+      '显示源图像。忽略目标图像。（只绘制新图形，删除其他所有内容）'
+    ]
+    
+    const btnsWrap = document.querySelector('.btns');
+    const info = document.querySelector('.info');
+    
+    let prev = 0;
+    info.innerHTML = text[prev];
+    
+    types.forEach(function(item, i) {
+      const btn = document.createElement('button');
+      if(!i) btn.classList.add('active');
+      btn.innerHTML = item;
+      btnsWrap.appendChild(btn);
+      btnsWrap.children[i].addEventListener('click', function (e){
+        btnsWrap.children[prev].classList.remove('active');
+        this.classList.add('active');
+        info.innerHTML = text[i];
+        prev = i;
+        ctx.clearRect(0, 0, W, H);
+        testGlobalCompositeOperation(item);
+      });
+    });
+    
+    testGlobalCompositeOperation();
+
+    function testGlobalCompositeOperation(type = 'source-over'){
+      ctx.save()
+      ctx.translate(W/2, H/2);
+      ctx.fillStyle = 'rgba(30, 126, 208, 0.6)';
+      ctx.fillRect(-200, -200, 200, 200);
+      
+      ctx.globalCompositeOperation = type;
+      
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(213, 69, 99, 0.6)';
+      ctx.arc(0, 0, 120, 0, 2*Math.PI);
+      ctx.fill();
+      ctx.restore();
+    }
+    
+    
+  </script>
+</body>
+</html>

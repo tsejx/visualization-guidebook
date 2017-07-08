@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    /**
+     * ctx.transform(a, b, c, d, e, f); 在之前的矩阵基础上进行计算
+     * ctx.setTransform(a, b, c, d, e, f); 初始化之前的矩阵计算，进行新的计算
+     *
+     * 位移： x' = x + dx   y' = y + dy
+     * 缩放： x' = s * x    y' = s * y
+     * 旋转： x' = x*cosα - y*sinα    y' = y*cosα + x*sinα
+     *
+     * 矩阵计算公式：
+     *  x' = ax + cy + e
+     *  y' = bx + dy + f
+     */
+    
+    const angle = 20 * Math.PI / 180;
+    
+    ctx.lineWidth = 10;
+    
+    // ctx.transform(1, 0, 0, 1, 200, 50);
+    // ctx.transform(1*Math.cos(angle), 1*Math.sin(angle), -1*Math.sin(angle), 1*Math.cos(angle), 0, 0);
+    // ctx.transform(1*Math.cos(angle), 1*Math.sin(angle), -1*Math.sin(angle), 1*Math.cos(angle), 200, 50);
+    // ctx.setTransform(2, 0, 0, 2, 100, 100);
+    // ctx.setTransform(1.5, 0, 0.75, 1.5, 100, 100);
+    ctx.beginPath();
+    // ctx.strokeRect(0, 0, 100, 100);
+    
+    
+    /**
+     * CanvasRenderingContext2D 提供了原生的 scale(numX, numY) translate(newX, newY) rotate(deg) 用来对坐标系进行旋转缩放
+     * 注意： 没有提供斜切，如果需要斜切那么需要使用 transform 或者 setTransform
+     */
+    
+    
+  </script>
+</body>
+</html>
