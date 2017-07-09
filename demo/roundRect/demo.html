@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script src='./RoundRect.js'></script>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    ctx.lineWidth = 10;
+    ctx.fillStyle = 'rgba(100, 140, 230, .4)';
+    ctx.strokeStyle = 'rgba(100, 140, 230, .6)';
+    
+    setShadow(ctx, 'rgba(0, 0, 0, .3)', 10, 10, 12);
+    
+    RoundRect(ctx, 100, 100, 300, 220, 20);
+    RoundRect(ctx, 450, 50, -400, 320, 20);
+    
+    ctx.fill();
+    
+    function setShadow(ctx, color, offsetX, offsetY, shadowBlur){
+      ctx.shadowColor = color;  // 阴影颜色
+      ctx.shadowOffsetX = offsetX;  // 阴影横向偏移距离
+      ctx.shadowOffsetY = offsetY;  // 阴影纵向偏移距离
+      ctx.shadowBlur = shadowBlur;  // 阴影高斯模糊处理
+    }
+    
+  </script>
+</body>
+</html>

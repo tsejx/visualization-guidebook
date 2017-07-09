@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      border: 2px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width = 1000;
+    const H = canvas.height = 700;
+    
+    let lastX = -999, lastY = -999;
+    
+    ctx.save();
+    ctx.fillStyle = 'rgb(24, 173, 69)';
+    ctx.beginPath();
+    ctx.fillRect(100, 100, 600, 300);
+    ctx.restore();
+    
+    
+    canvas.onmousemove = function (e){
+      let X = e.offsetX, Y = e.offsetY;
+      
+      clearLastEaser(ctx, lastX, lastY, 30);
+      drawCurrentEaser(ctx, X, Y, 30);
+      
+      lastX = X;
+      lastY = Y;
+    };
+    
+    
+    function setEraserStyle(ctx){
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'rgb(59, 197, 233)';
+      ctx.shadowColor = 'rgba(0, 0, 0, 1)';
+      ctx.shadowOffsetX = -5;
+      ctx.shadowOffsetY = -5;
+      ctx.shadowBlur = 20;
+    }
+    
+    function setEaserPath(ctx, x, y, r){
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, 2*Math.PI);
+      ctx.clip();
+    }
+    
+    function clearLastEaser(ctx, x, y, r){
+      ctx.save();
+      setEaserPath(ctx, x, y, r);
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.restore();
+    }
+    
+    function drawCurrentEaser(ctx, x, y, r){
+      ctx.save();
+      setEraserStyle(ctx);
+      setEaserPath(ctx, x, y, r - 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+    
+    
+  </script>
+</body>
+</html>
