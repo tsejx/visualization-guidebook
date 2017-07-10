@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    ctx.beginPath();
+    ctx.lineTo(0, H/2);
+    ctx.lineTo(W, H/2);
+    ctx.moveTo(W/2, 0);
+    ctx.lineTo(W/2, H);
+    ctx.stroke();
+    
+    // 设置文本的样式 font-style  font-size line-height font-family
+    // font-style line-height 默认值都是 normal
+    // line-height 被强制设置为 normal 也就是不能被修改
+    ctx.font = 'bold 3cm arial';
+    
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    ctx.fillText('好吃的', W/2, H/2);
+    
+  </script>
+</body>
+</html>

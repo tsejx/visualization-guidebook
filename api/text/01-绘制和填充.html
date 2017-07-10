@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    .text-wrap {
+      width: 1000px;
+      height: 600px;
+      box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    .checks {
+      position: absolute;
+      left: 20px;
+      top: 10px;
+      z-index: 2;
+    }
+    #canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="text-wrap">
+    <div class="checks">
+      <input type="checkbox">填充
+      <input type="checkbox">描边
+      <input type="checkbox">阴影
+      <input type="checkbox">限制
+    </div>
+    <canvas id="canvas"></canvas>
+    <script>
+      const checks = document.querySelectorAll('.checks input');
+      const canvas  = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      const W = canvas.width = 1000;
+      const H = canvas.height = 600;
+      
+      const textStr = 'Hello,World!';
+      
+      for(let item of checks){
+        item.onchange = draw;
+      }
+      
+      function draw(){
+        ctx.clearRect(0, 0, W, H);
+        ctx.save();
+        if(checks[2].checked){
+          setShaodowStyle('rgba(0, 0, 0, 0.5)', 5, 5, 12);
+        }
+        drawText();
+        ctx.restore();
+      }
+      
+      function setShaodowStyle(color, x, y, blur){
+        ctx.shadowColor = color;
+        ctx.shadowOffsetX = x;
+        ctx.shadowOffsetY = y;
+        ctx.shadowBlur = blur;
+      }
+      
+      function drawText(){
+        ctx.strokeStyle = 'rgb(179, 177, 177)';
+        ctx.fillStyle = 'rgb(92, 181, 224)';
+        ctx.lineWidth = 2;
+        
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '140px arial';
+        
+        const x = W/2, y = H/2;
+        
+        let scope;
+        
+        if(checks[3].checked){
+          scope = x;
+        }
+        
+        // 填充文本 => 要绘制的文字， 位置x， 位置y，限制大小
+        if(checks[0].checked)ctx.fillText(textStr, x, y, scope);
+        // 描边文本 => 要绘制的文字， 位置x， 位置y，限制大小
+        if(checks[1].checked)ctx.strokeText(textStr, x, y, scope)
+      }
+      
+    
+    
+    </script>
+  </div>
+</body>
+</html>

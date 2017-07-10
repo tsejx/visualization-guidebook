@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width;
+    const H = canvas.height;
+    
+    ctx.beginPath();
+    ctx.lineTo(0, H/2);
+    ctx.lineTo(W, H/2);
+    ctx.moveTo(W/2, 0);
+    ctx.lineTo(W/2, H);
+    ctx.stroke();
+    
+    const str = '好吃的';
+    
+    // 不能放在设定文字样式之前
+    // console.log(ctx.measureText(str).width);
+    
+    ctx.font = 'bold 100px arial';
+    
+    // 返回当前文本的度量，在返回值的width属性中
+    // console.log(ctx.measureText(str).width);
+    
+    const w = ctx.measureText(str).width;
+    
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    ctx.fillText(str, W/2, H/2);
+    
+    ctx.strokeRect(W/2 - w/2, H/2 - 50, w, 100);
+    
+  </script>
+</body>
+</html>
