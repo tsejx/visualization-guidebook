@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    .scaleImg {
+      margin: 10px 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .scaleImg span {
+      padding: 0 20px;
+      color: rgb(171, 35, 113);
+      font-weight: bold;
+      font-size: 18px;
+    }
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="scaleImg">
+    <input type="range" min=1 max=3 step=0.01 value=1>
+    <span class="info">1</span>
+  </div>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const scaleImg = document.querySelector('.scaleImg input');
+    const info = document.querySelector('.info');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    let W = canvas.width = 1000;
+    let H = canvas.height = 5000/8;
+    
+    const pic = new Image();
+    
+    pic.src = '../../assets/waterfall.png';
+    
+    pic.onload = function (){
+      W = canvas.width = this.width;
+      H = canvas.height = this.height;
+      drawImg(this, 1);
+      changeScale(this);
+    };
+    
+    function drawImg(img, scale){
+      let sw = W * scale;
+      let sh = H * scale;
+      ctx.drawImage(img, W/2 - sw/2, H/2 - sh/2, sw, sh);
+    }
+    
+    function changeScale(img){
+      scaleImg.oninput = function (){
+        let scale = info.innerHTML = this.value
+        ctx.clearRect(0, 0, W, H);
+        drawImg(img, scale);
+      };
+    }
+  </script>
+</body>
+</html>

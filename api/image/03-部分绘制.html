@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    body {
+      background: rgba(100, 145, 250, 0.3);
+    }
+    .scaleImg {
+      margin: 10px 0;
+    }
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="scaleImg">
+    <input type="checkbox"> 绘制左半部分
+  </div>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script>
+    const scaleImg = document.querySelector('.scaleImg input');
+  
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width = 1000;
+    const H = canvas.height = 5000/8;
+    
+    const pic = new Image();
+    
+    pic.src = '../assets/waterfall.png';
+    
+    pic.onload = function (){
+      ctx.drawImage(this, 0, 0);
+      scaleImg.onchange = function (){
+        ctx.clearRect(0, 0, W, H);
+        if(this.checked){
+           // 图像 要绘制图像的部分的起始坐标 图像的大小 绘制到画布的起始坐标 缩放多大绘制
+          ctx.drawImage(pic, 0, 0, pic.width/2, pic.height, 0, 0, pic.width/2, pic.height); 
+        }else{
+          ctx.drawImage(pic, 0, 0);
+        }
+      };
+    };
+    
+    
+  </script>
+</body>
+</html>

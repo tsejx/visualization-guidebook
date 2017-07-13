@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    let W, H, x = 0;
+    
+    const img = new Image();
+    img.src = '../assets/sky.png';
+    img.onload = function (){
+      W = canvas.width = this.width;
+      H = canvas.height = this.height;
+      (function fn(){
+        window.requestAnimationFrame(fn);
+        ctx.clearRect(0, 0, W, H);
+        x--;
+        if(x + W == 0) x = 0;
+        render(x, img)
+      })();
+    };
+    
+    function render(x, img){
+      ctx.save();
+      ctx.translate(x, 0);
+      ctx.beginPath();
+      ctx.drawImage(img, 0, 0, W, H);
+      ctx.beginPath();
+      ctx.drawImage(img, W - 1, 0, W, H);
+      ctx.restore();
+    }
+    
+    
+  </script>
+</body>
+</html>

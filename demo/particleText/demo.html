@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="800" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width = 800;
+    const H = canvas.height = 600;
+    
+    class Particle{
+      constructor(x, y, r){
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.vr = Math.random() - 0.5;
+        return this;
+      }
+      move(){
+        this.r += this.vr;
+        if(this.r <= 1 || this.r >= 6){
+          this.vr *= -1;
+        }
+        return this;
+      }
+      render(ctx){
+        ctx.beginPath();
+        ctx.fillStyle = `rgb(${~~(Math.random() * 200) + 55},${~~(Math.random() * 200) + 55}, ${~~(Math.random() * 200) + 55})`;
+        ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+        ctx.fill();
+      }
+    }
+    
+    ctx.font = '150px arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    ctx.fillText('Hello', W/2, H/2)
+    
+    let imageData = ctx.getImageData(0, 0, W, H);
+    let picData = imageData.data;
+    
+    let particles = [];
+    
+    for(let i=0; i<H; i+=8){
+      for(let j=0; j<W; j+=8){
+        if(picData[(i*W+j)*4+3]){
+          // temp.push([(i*W+j)*4, (i*W+j)*4+1, (i*W+j)*4+2, (i*W+j)*4+3]);
+          particles.push(new Particle(j, i, 5));
+        }
+      }
+    }
+    
+    setInterval(animate, 100);
+    
+    function animate(){
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, W, H);
+      particles.forEach(function(item, i) {
+        item.move().render(ctx);
+      });
+    };
+    
+  </script>
+</body>
+</html>
