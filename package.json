@@ -1,0 +1,37 @@
+{
+  "name": "visualization-guidebook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "start": "yarn run dev",
+    "dev": "yarn run dumi dev --port=9010",
+    "lint:md": "lint-md *.md",
+    "lint:fix": "lint-md *.md --fix",
+    "build": "yarn run dumi build",
+    "deploy": "bash ./scripts/deploy.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsejx/visualization-guidebook.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tsejx/visualization-guidebook/issues"
+  },
+  "homepage": "https://github.com/tsejx/visualization-guidebook#readme",
+  "devDependencies": {
+    "babel-plugin-import": "^1.13.3",
+    "dumi": "^1.1.20",
+    "typescript": "^4.3.4"
+  },
+  "dependencies": {
+    "ahooks": "^2.10.6",
+    "antd": "^4.16.3"
+  }
+}
