@@ -1,20 +1,8 @@
 ## 像素控制
 
-Canvas 中像素控制的相关方法共有三种：
-
-- [像素控制](#像素控制)
-  - [createImageData()](#createimagedata)
-    - [语法](#语法)
-    - [示例](#示例)
-  - [getImageData()](#getimagedata)
-    - [语法](#语法-1)
-    - [示例](#示例-1)
-  - [putImageData()](#putimagedata)
-    - [语法](#语法-2)
-
 ### createImageData()
 
-`CanvasRenderingContext.createImageData()` 方法创建新的空白 ImageData 对象。新对象的默认像素值 transparent black。
+`CanvasRenderingContext.createImageData()` 方法创建新的空白 ImageData 对象。新对象的默认像素值 `transparent black`。
 
 #### 语法
 
@@ -40,13 +28,10 @@ ctx.createImageData(imagedata);
 
 对于 ImageData 对象中的每个像素，都存在着四方面的信息，即 RGBA 值：
 
-R - 红色（0-255）
-
-G - 绿色（0-255）
-
-B - 蓝色（0-255）
-
-A - alpha 通道（0-255；0 是透明，255 是完全可见）
+- R - 红色（0-255）
+- G - 绿色（0-255）
+- B - 蓝色（0-255）
+- A - alpha 通道（0-255；0 是透明，255 是完全可见）
 
 color/alpha 信息以数组形式存在，并且由于数组白喊了每个像素的四条信息，所以数组的大小是 ImageData 对象的四倍：`width*height*4`。（获得数组大小有更简单的办法，就是使用 ImageDataObject.data.length）
 
@@ -144,3 +129,7 @@ context.putImageData(imgData, x, y, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
 
 - `NotSupportError`：如果任何一个变量被设置成无穷大，则会抛出此错误
 - `InvalidStateError`：如果图像数据对象的数据被分离，会抛出此错误
+
+## 参考资料
+
+- [HTML Living Standard: ImageData]()
